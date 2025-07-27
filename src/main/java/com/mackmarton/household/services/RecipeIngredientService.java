@@ -27,4 +27,8 @@ public class RecipeIngredientService {
     public void deleteByRecipeId(int recipeId) {
         recipeIngredientRepository.deleteByRecipeId(recipeId);
     }
+
+    public void deleteByIngredientId(int id) {
+        recipeIngredientRepository.deleteByIngredientId(id);
+    }
 }
