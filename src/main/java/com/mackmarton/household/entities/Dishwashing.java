@@ -15,7 +15,5 @@ public class Dishwashing {
 
     private LocalDateTime time;
 
-    @ManyToOne
-    @JoinColumn(name = "memberId")
-    private HouseholdMember member;
+    private String name;
 }
