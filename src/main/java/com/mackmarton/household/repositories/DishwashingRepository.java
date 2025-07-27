@@ -4,4 +4,8 @@ import com.mackmarton.household.entities.*;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 
-public interface DishwashingRepository extends JpaRepository<Dishwashing, Integer> { }
+public interface DishwashingRepository extends JpaRepository<Dishwashing, Integer> {
+    int countDishwashingByNameEquals(String name);
+
+    Dishwashing findFirstByOrderByTimeDesc();
+}
