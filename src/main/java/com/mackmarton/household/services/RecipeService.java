@@ -53,6 +53,7 @@ public class RecipeService {
 
         return recipeRepository.findById(id).map(recipe -> {
             recipe.setDescription(recipeDetails.getDescription());
+            recipe.setName(recipeDetails.getName());
             return recipeMapper.toDto(recipeRepository.save(recipe));
         });
     }

@@ -29,6 +29,7 @@ public abstract class RecipeMapper {
     public RecipeDTO toDto(Recipe recipe) {
         RecipeDTO dto = new RecipeDTO();
         dto.setId(recipe.getId());
+        dto.setName(recipe.getName());
         dto.setDescription(recipe.getDescription());
         dto.setIngredients(mapIngredients(recipe));
         return dto;
