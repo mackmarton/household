@@ -18,5 +18,7 @@ public class RecipeIngredient {
     @JoinColumn(name = "ingredientId")
     private Item ingredient;
 
+    private String weight;
+
     private Boolean isAvailable;
 }

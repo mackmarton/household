@@ -10,5 +10,7 @@ public class RecipeIngredientDTO {
 
     private Integer ingredientId;
 
+    private String weight;
+
     private Boolean isAvailable;
 }

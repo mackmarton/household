@@ -51,6 +51,7 @@ public class RecipeIngredientService {
 
         return recipeIngredientRepository.findById(id).map(recipeIngredient -> {
             recipeIngredient.setIsAvailable(recipeIngredientDTO.getIsAvailable());
+            recipeIngredient.setWeight(recipeIngredientDTO.getWeight());
             return recipeIngredientMapper.toDto(recipeIngredientRepository.save(recipeIngredient));
         });
     }
