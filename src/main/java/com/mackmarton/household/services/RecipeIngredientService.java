@@ -1,6 +1,8 @@
 package com.mackmarton.household.services;
 
+import com.mackmarton.household.dto.RecipeIngredientDTO;
 import com.mackmarton.household.entities.RecipeIngredient;
+import com.mackmarton.household.mappers.RecipeIngredientMapper;
 import com.mackmarton.household.repositories.RecipeIngredientRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -12,15 +14,17 @@ import java.util.List;
 @RequiredArgsConstructor
 public class RecipeIngredientService {
     private final RecipeIngredientRepository recipeIngredientRepository;
+    private final RecipeIngredientMapper recipeIngredientMapper;
 
     @Transactional(readOnly = true)
-    public List<RecipeIngredient> getRecipeIngredientsByRecipeId(int recipeId){
-        return recipeIngredientRepository.getRecipeIngredientsByRecipeId(recipeId);
+    public List<RecipeIngredientDTO> getRecipeIngredientsByRecipeId(int recipeId) {
+        return recipeIngredientMapper.toDtos(recipeIngredientRepository.getRecipeIngredientsByRecipeId(recipeId));
     }
 
     @Transactional
-    public RecipeIngredient createRecipeIngredient(RecipeIngredient  recipeIngredient){
-        return recipeIngredientRepository.save(recipeIngredient);
+    public RecipeIngredientDTO createRecipeIngredient(RecipeIngredientDTO recipeIngredientDto) {
+        RecipeIngredient recipeIngredient = recipeIngredientMapper.toEntity(recipeIngredientDto);
+        return recipeIngredientMapper.toDto(recipeIngredientRepository.save(recipeIngredient));
     }
 
     @Transactional
@@ -30,5 +34,12 @@ public class RecipeIngredientService {
 
     public void deleteByIngredientId(int id) {
         recipeIngredientRepository.deleteByIngredientId(id);
+    }
+
+    public boolean deleteRecipeIngredientById(int id) {
+        return recipeIngredientRepository.findById(id).map(recipeIngredient -> {
+            recipeIngredientRepository.delete(recipeIngredient);
+            return true;
+        }).orElse(false);
     }
 }

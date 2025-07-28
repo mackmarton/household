@@ -4,6 +4,11 @@ import lombok.Data;
 
 @Data
 public class RecipeIngredientDTO {
-    private ItemDTO ingredient;
+    private Integer id;
+
+    private Integer recipeId;
+
+    private Integer ingredientId;
+
     private Boolean isAvailable;
 }

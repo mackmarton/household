@@ -2,7 +2,6 @@ package com.mackmarton.household.services;
 
 import com.mackmarton.household.dto.RecipeDTO;
 import com.mackmarton.household.entities.Recipe;
-import com.mackmarton.household.entities.RecipeIngredient;
 import com.mackmarton.household.mappers.RecipeMapper;
 import com.mackmarton.household.repositories.RecipeRepository;
 import lombok.RequiredArgsConstructor;
@@ -22,18 +21,6 @@ public class RecipeService {
 
     public RecipeDTO createRecipe(RecipeDTO recipeDTO) {
         Recipe savedRecipe = recipeRepository.save(recipeMapper.toEntity(recipeDTO));
-
-        var ingredients = recipeDTO.getIngredients();
-        for (var ingredient: ingredients) {
-            var item = itemService.getOrCreateItem(ingredient.getIngredient());
-
-            var recipeIngredient = new RecipeIngredient();
-            recipeIngredient.setIngredient(item);
-            recipeIngredient.setRecipe(savedRecipe);
-            recipeIngredient.setIsAvailable(ingredient.getIsAvailable());
-            recipeIngredientService.createRecipeIngredient(recipeIngredient);
-        }
-
         return recipeMapper.toDto(savedRecipe);
     }
 
