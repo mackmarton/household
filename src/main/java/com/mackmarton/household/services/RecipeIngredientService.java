@@ -9,6 +9,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
+import java.util.Optional;
 
 @Service
 @RequiredArgsConstructor
@@ -41,5 +42,16 @@ public class RecipeIngredientService {
             recipeIngredientRepository.delete(recipeIngredient);
             return true;
         }).orElse(false);
+    }
+
+    public Optional<RecipeIngredientDTO> updateRecipeIngredient(int id, RecipeIngredientDTO recipeIngredientDTO) {
+        if (!recipeIngredientDTO.getId().equals(id)) {
+            return Optional.empty();
+        }
+
+        return recipeIngredientRepository.findById(id).map(recipeIngredient -> {
+            recipeIngredient.setIsAvailable(recipeIngredientDTO.getIsAvailable());
+            return recipeIngredientMapper.toDto(recipeIngredientRepository.save(recipeIngredient));
+        });
     }
 }
